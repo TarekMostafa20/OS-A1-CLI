@@ -75,6 +75,28 @@ public class Terminal {
                         System.out.printf("%d %s\n", i + 1, history.get(i));
                     }
                     break;
+                case "mkdir":
+                    if (parser.getArgs().length == 0) {
+                        System.out.println("Usage: mkdir <directory>");
+                        break;
+                    }
+                    String folder = parser.getArgs()[0];
+                    File dir =  new File(folder);
+                    dir.mkdir();
+                    break;
+                case "touch":
+                    if (parser.getArgs().length == 0) {
+                        System.out.println("Usage: mkdir <directory>");
+                        break;
+                    }
+                    String file = parser.getArgs()[0];
+                    File newFile = new File(file);
+                    try {
+                        newFile.createNewFile();
+                    }catch (Exception e){
+                        System.out.print("Could not create file");
+                    }
+                    break;
                 case "exit":
                     return;
                 default:
