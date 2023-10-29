@@ -23,7 +23,7 @@ public class Terminal {
     public void run() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.print("$ ");
+            System.out.print(new File("").getAbsolutePath()+"$ ");
             String input = scanner.nextLine();
             history.add(input);
             if (!parser.parse(input)) {
@@ -71,7 +71,7 @@ public class Terminal {
                     }
                     break;
                 case "history":
-                    for (int i = 0; i < history.size(); i++) {
+                    for (int i = 0; i < history.size()-1; i++) {
                         System.out.printf("%d %s\n", i + 1, history.get(i));
                     }
                     break;
@@ -95,6 +95,17 @@ public class Terminal {
                         newFile.createNewFile();
                     }catch (Exception e){
                         System.out.print("Could not create file");
+                    }
+                    break;
+                case "rmdir":
+                    if (parser.getArgs().length == 0) {
+                        System.out.println("Usage: rmdir <directory>");
+                        break;
+                    }
+                    String deleted = parser.getArgs()[0];
+                    File DF = new File(deleted);
+                    if(!DF.delete()){
+                        System.out.print("Could not delete the current directory as it is not empty");
                     }
                     break;
                 case "exit":
